@@ -1,0 +1,105 @@
+<script setup lang="ts">
+import {useRoute} from "vue-router";
+import SearchBarComponent from "./SearchBarComponent.vue";
+import Menubar from "primevue/menubar";
+import Card from "primevue/card";
+import Tag from "primevue/tag";
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
+import VueMarkdown from 'vue-markdown-render'
+
+import { ref } from "vue";
+
+import * as SampleData from './SampleData.ts';
+import MenuBarComponent from "./MenuBarComponent.vue";
+
+const route = useRoute();
+var items: any;
+
+const searchQuery = decodeURIComponent(route.params['query']);
+
+const results = SampleData.default;
+
+const visible = ref(false);
+const selected = ref({
+  title: "",
+  type: "",
+  flags: [],
+  description: "",
+  content: "",
+  url: ""
+});
+
+function select(item: any) {
+  visible.value = true;
+  selected.value = item;
+}
+</script>
+
+<template>
+  <MenuBarComponent :text="searchQuery" :displaySearch="true" />
+<!--  <Menubar :model="items" class="container">-->
+<!--    <template #start>-->
+<!--      <SearchBarComponent :text="searchQuery" />-->
+<!--    </template>-->
+<!--  </Menubar>-->
+
+  <div class="container w-full">
+    <span class="small-text">Showing results for <b>{{ searchQuery }}</b></span>
+
+    <Card v-for="result in results" class="result-card w-full">
+      <template #title><a :href="result.url" target="_blank">{{result.title}}</a></template>
+      <template #subtitle>
+        {{result.url}}
+      </template>
+      <template #content>{{result.description}}</template>
+      <template #footer>
+        <Tag class="flag" v-for="flag in result.flags" :value="flag"></Tag>
+        <Button class="why-button" label="" icon="pi pi-question" iconPos="right" @click="() => {select(result)}" />
+      </template>
+    </Card>
+  </div>
+
+  <Dialog v-model:visible="visible" modal :header="selected.title" :style="{width: '75vw'}" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <div class="inner-container">
+      <vue-markdown :source="selected.content"></vue-markdown>
+      <div class="button-container">
+        <Button as="a" label="Why" icon="pi pi-question" target="_blank" rel="noopener" iconPos="right" class="open-button" />
+        <Button as="a" label="Add to list" icon="pi pi-list" target="_blank" rel="noopener" iconPos="right" class="open-button" />
+        <Button as="a" label="Open" icon="pi pi-link" :href="selected.url" target="_blank" rel="noopener" iconPos="right" class="open-button" />
+      </div>
+    </div>
+  </Dialog>
+</template>
+
+<style scoped>
+.button-container {
+  display: flex;
+}
+.open-button {
+  width: auto;
+  margin: 0.5rem;
+  flex-grow: 1;
+}
+.inner-container {
+  margin: 1rem;
+}
+.why-button {
+  float: right;
+  border-radius: 100%;
+}
+.flag {
+  margin-right: .5rem;
+}
+.result-card {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.small-text {
+  color: grey;
+  padding-left: 1rem;
+}
+.container {
+  padding: 1rem 6rem;
+}
+</style>
