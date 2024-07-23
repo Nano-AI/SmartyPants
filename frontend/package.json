@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.0.0",
+    "axios": "^1.7.2",
     "marked": "^13.0.2",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.0",
     "vue": "^3.4.29",
+    "vue-axios": "^3.5.2",
     "vue-markdown": "^2.2.4",
     "vue-markdown-render": "^2.2.1",
     "vue-router": "^4.4.0"
