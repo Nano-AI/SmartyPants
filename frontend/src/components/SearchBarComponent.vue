@@ -7,23 +7,29 @@ import IconField from "primevue/iconfield";
 import axios from 'axios'
 
 import {useRouter} from "vue-router";
+import SearchComponent from "./SearchComponent.vue";
 
 let searchValue: string;
+let resultBlocks: any;
+
 const router = useRouter();
 
 const NGROKSERVERURL = "https://00a5-216-9-29-203.ngrok-free.app";
 
 async function searchQuery() {
-  router.push({ name: 'search', params: { query: encodeURIComponent(searchValue) } });
-
+  router.push({ name: 'search', 
+      params: { 
+        query: encodeURIComponent(searchValue)
+      } 
+  });
   await axios.get(`${NGROKSERVERURL}/naturalUserQuery/${searchValue}`, {
       headers: {
         "ngrok-skip-browser-warning": "0"
       }
   }).then((res) => {
-    alert(`SMARTPANTS HAS ORGANIZED YOUR DATA: ${JSON.stringify(res)}`);
+      resultBlocks = res["data"];
+      alert(JSON.stringify(resultBlocks));
   });
-  
 }
 
 const props = defineProps({

@@ -43,7 +43,23 @@ async function retrieveData(query) {
     return dataBuffer;
 }
 
+// General function for writing to the DB
+async function writeData(dataBlock) {
+    if (connection === undefined) {
+        throw new Error('DB has not been connected!');
+    }
+    connection.collection("opportunities").insertOne(dataBlock, function(err, res) {
+        if (err) throw err;
+        console.log("Data block inserted successfully.");
+        db.close();
+    });
+}
+
+connectToDatabase();
+
 // Export all our wrapped functions
 module.exports = { 
-
+    connectToDatabase,
+    retrieveData,
+    writeData
 };

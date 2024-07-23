@@ -1,0 +1,8 @@
+{
+    "title": "Name of Opportunity",
+    "type": "Type of opportunity, either internship, non-profit, research, volunteering, club for now",
+    "flags": ["Array of any related contextual flags"],
+    "description": "Self explanatory",
+    "content": "Content of the LARGER explanation of the activity",
+    "url" : "a url"
+}

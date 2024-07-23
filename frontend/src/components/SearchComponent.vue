@@ -14,10 +14,8 @@ import * as SampleData from './SampleData.ts';
 import MenuBarComponent from "./MenuBarComponent.vue";
 
 const route = useRoute();
-var items: any;
 
 const searchQuery = decodeURIComponent(route.params['query']);
-
 const results = SampleData.default;
 
 const visible = ref(false);
@@ -34,6 +32,7 @@ function select(item: any) {
   visible.value = true;
   selected.value = item;
 }
+
 </script>
 
 <template>
@@ -46,7 +45,6 @@ function select(item: any) {
 
   <div class="container w-full">
     <span class="small-text">Showing results for <b>{{ searchQuery }}</b></span>
-
     <Card v-for="result in results" class="result-card w-full">
       <template #title><a :href="result.url" target="_blank">{{result.title}}</a></template>
       <template #subtitle>
