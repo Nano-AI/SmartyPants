@@ -22,7 +22,7 @@ TIME must be days of the week, separated by commas.
 LOCATION must be the name of a city, state, prefecture, etc.
 TYPE must be either internship, non-profit, research, volunteering, or club depending on the context.
 FLAGS can be any of the following, if appropriate to the given context: non-profit, fiscal-sponsor, foundation,
-research, university, high-school, assistant, intern, stem, club, athletic, entrepreneurship
+research, university, high-school, assistant, club, athletic, entrepreneurship, competition
 
 I am a 14 year old Turkish guy in the San Francisco Bay Area I'm really good at editing videos and making websites, and I'd be totally down to do some work after school hours on Wednesdays and on weekends
 I am a 16 year old Chinese dude who wants an internship in software engineering in Seattle and I have lots of time on Wednesdays and Thursdays

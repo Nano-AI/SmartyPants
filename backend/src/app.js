@@ -630,7 +630,25 @@ app.get('/naturalUserQuery/:query', async (req, res) => {
         }
     }
 
-    let dbResponse = await db.retrieveData({"type": GeminiObject["TYPE"]});
+    let parsedFlags = GeminiObject["FLAGS"].split(',');
+    let dbResponse = await db.retrieveData({
+        "type": GeminiObject["TYPE"],
+        "flags" : { $all: parsedFlags }
+    });
+
+    // Maybe types and flags won't match up initially, that's fine.
+    if (dbResponse.length === 0) {
+        dbResponse = await db.retrieveData({
+            "flags" : { $all: parsedFlags }
+        });
+    }
+
+    // If STILL no responses, get a highly generic result pool
+    if (dbResponse.length === 0) {
+        dbResponse = await db.retrieveData({
+            "type": GeminiObject["TYPE"]
+        });
+    }
     console.log(`\n\nDATABASE RESPONSE:\n\n\n${JSON.stringify(dbResponse)}`);
 
     // Sends an ARRAY of perfectly formatted data matching the schema on the Vue end, just a different _id system.
