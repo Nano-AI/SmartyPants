@@ -34,4 +34,10 @@ const props = defineProps({
 
 <style scoped>
 
+.search-bar {
+  border-radius: 500px;
+  width: 30vw;
+  font-size: 20px;
+}
+
 </style>
