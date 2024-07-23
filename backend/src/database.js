@@ -27,7 +27,7 @@ function getDB() {
   if (!client) {
     throw new Error('You must connect first!');
   }
-  return client.db('RealEngine'); // Replace with your database name
+  return client.db('SmartyPants'); // Replace with your database name
 }
 
 // General function for querying the DB, reduces redundancy
@@ -36,7 +36,7 @@ async function retrieveData(query) {
     if (connection === undefined) {
         throw new Error('DB has not been connected!');
     }
-    const dbresult = await connection.collection("rooms").find(query);
+    const dbresult = await connection.collection("opportunities").find(query);
     for await (const doc of dbresult) {
         dataBuffer.push(doc);
     }
