@@ -20,7 +20,8 @@ const gemini = require('./geminiservice');
 const { error } = require("console");
 const app = express();
 
-app.use(cors());
+app.use(cors()).use(express.json());
+
 // Setup server port
 const port = process.env.PORT;
 
@@ -594,6 +595,15 @@ app.get('/populateDB', async (req, res) => {
     });
 
     res.send("Done populating DB.");
+});
+
+// Posting a suggestion from the user.
+app.post('/submitSuggestion', async (req, res) => {
+    const suggestionOut = req.body;
+    //console.log('Received suggestion:', suggestionOut);
+    
+    await db.writeData(suggestionOut);  
+    res.status(200).send({ message: 'Suggestion received successfully' });
 });
 
 // The default endpoint for queries made by the user. If they choose not to enter

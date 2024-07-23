@@ -9,6 +9,8 @@ import Tag from "primevue/tag";
 import Textarea from "primevue/textarea";
 import Editor from "primevue/editor";
 import Button from "primevue/button";
+import axios from "axios";
+import { NGROKSERVERURL } from "../main.ts";
 
 // types of opportunities as outlined in the schema
 const types = ref([
@@ -55,6 +57,20 @@ function filterFlags(event: any) {
 function removeTag(name: string) {
   flags.value = flags.value.filter(e => e !== name);
 }
+
+async function submitForm() {
+  var suggestionOut = {
+    "title": title.value,
+    "type": type.value.code,
+    "flags": flags.value,
+    "description": description.value,
+    "content": content.value,
+    "url": url.value
+  };
+
+  await axios.post(`${NGROKSERVERURL}/submitSuggestion`, suggestionOut);
+}
+
 </script>
 
 <template>
@@ -103,7 +119,7 @@ function removeTag(name: string) {
       <Editor class="w-full mt-2" id="content" v-model="content" aria-describedby="content-help" />
     </div>
     <!-- Submit button TODO: add submit functionality -->
-    <Button label="Submit" class="w-full" />
+    <Button label="Submit" class="w-full" :onclick="submitForm" />
   </div>
 </template>
 
