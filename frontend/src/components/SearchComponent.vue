@@ -13,7 +13,7 @@ import axios from 'axios'
 
 // import * as SampleData from './SampleData.ts';
 import MenuBarComponent from "./MenuBarComponent.vue";
-
+import { NGROKSERVERURL } from "../main.ts";
 
 // Match db schema
 interface SearchResult {
@@ -32,9 +32,6 @@ var resultBlocks = ref([] as Array<SearchResult>);
 
 // Why is there a compiler error here?
 const searchQuery = decodeURIComponent(<string>route.params['query']);
-
-// NGROK Public url, might need to make this fixed eventually it'll be a headache otherwise.
-const NGROKSERVERURL = "https://00a5-216-9-29-203.ngrok-free.app";
 
 // This component takes query string from router push, then executes GET requests
 // on its own. Results should load with this page, not with a submission from a sibling
