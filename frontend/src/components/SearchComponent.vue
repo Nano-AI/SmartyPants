@@ -14,7 +14,6 @@ import axios from 'axios'
 // import * as SampleData from './SampleData.ts';
 import MenuBarComponent from "./MenuBarComponent.vue";
 
-const route = useRoute();
 
 // Match db schema
 interface SearchResult {
@@ -26,8 +25,10 @@ interface SearchResult {
     url: string;
 };
 
+const route = useRoute();
+
 // All variables related to search results
-var resultBlocks: Array<SearchResult>;
+var resultBlocks = ref([] as Array<SearchResult>);
 
 // Why is there a compiler error here?
 const searchQuery = decodeURIComponent(<string>route.params['query']);
@@ -45,7 +46,7 @@ const fetchResults = async () => {
         "ngrok-skip-browser-warning": "0"
       }
   }).then((res) => {
-      resultBlocks = res["data"];
+     resultBlocks.value = res["data"];
   });
 };
 
