@@ -27,6 +27,7 @@ var flags = ref<string[]>([]); // this is for storing the total flags
 var flagsInputBox = ref<string>(""); // this is for what's being typed in the flags box
 var description = ref<string>("");
 var content = ref<string>("");
+var url = ref<string>("");
 
 // oninput function that handles whenever stuff is being typed into the box
 function handleFlags() {
@@ -65,18 +66,24 @@ function removeTag(name: string) {
     <!--  Grid layout  -->
     <div class="grid grid-cols-2 gap-2">
       <!--   Title   -->
-      <div class="flex flex-col gap-2 col-span-2">
+      <div class="flex flex-col gap-2 sm:col-span-2 md:col-span-1">
         <label for="title">Title</label>
         <InputText id="title" v-model="title" aria-describedby="title-help"/>
       </div>
       <!--   Type of opportunity   -->
-      <div class="flex flex-col gap-2 col-span-2 md:col-span-1">
+      <div class="flex flex-col gap-2 sm:col-span-2 md:col-span-1">
+        <label for="url">URL</label>
+        <InputText type="url" v-model="url" aria-describedby="url-help"/>
+        <small id="url-help" class="text-muted">
+        </small>
+      </div>
+      <div class="flex flex-col gap-2 sm:col-span-2 md:col-span-1">
         <label for="type">Type</label>
         <Dropdown v-model="type" :options="types" optionLabel="name" placeholder="Type of Internship"
                   class="w-full md:w-[14 rem]"/>
       </div>
       <!--  Flags input    -->
-      <div class="flex flex-col gap-2 col-span-2 md:col-span-1">
+      <div class="flex flex-col gap-2 sm:col-span-2 md:col-span-1">
         <label for="flags">Flags</label>
         <InputText id="Flags" v-model="flagsInputBox" aria-describedby="flags-help" :oninput="handleFlags" :onkeydown="filterFlags"/>
         <small id="flags-help">
