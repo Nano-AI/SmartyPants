@@ -1,22 +1,56 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import SearchBarComponent from "./SearchBarComponent.vue";
-import Menubar from "primevue/menubar";
+// import SearchBarComponent from "./SearchBarComponent.vue";
+// import Menubar from "primevue/menubar";
 import Card from "primevue/card";
 import Tag from "primevue/tag";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import VueMarkdown from 'vue-markdown-render'
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import axios from 'axios'
 
-import * as SampleData from './SampleData.ts';
+// import * as SampleData from './SampleData.ts';
 import MenuBarComponent from "./MenuBarComponent.vue";
 
 const route = useRoute();
 
-const searchQuery = decodeURIComponent(route.params['query']);
-const results = SampleData.default;
+// Match db schema
+interface SearchResult {
+    _id: number;
+    title: string;
+    flags: Array<string>;
+    description: string;
+    content: string;
+    url: string;
+};
+
+// All variables related to search results
+var resultBlocks: Array<SearchResult>;
+
+// Why is there a compiler error here?
+const searchQuery = decodeURIComponent(<string>route.params['query']);
+
+// NGROK Public url, might need to make this fixed eventually it'll be a headache otherwise.
+const NGROKSERVERURL = "https://00a5-216-9-29-203.ngrok-free.app";
+
+// This component takes query string from router push, then executes GET requests
+// on its own. Results should load with this page, not with a submission from a sibling
+// component (i.e request through this component's respective URL should work as well as
+// a query submission through the bar component)
+const fetchResults = async () => {
+  await axios.get(`${NGROKSERVERURL}/naturalUserQuery/${searchQuery}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "0"
+      }
+  }).then((res) => {
+      resultBlocks = res["data"];
+  });
+};
+
+// V3.0
+onMounted(fetchResults);
 
 const visible = ref(false);
 const selected = ref({
@@ -45,7 +79,7 @@ function select(item: any) {
 
   <div class="container w-full">
     <span class="small-text">Showing results for <b>{{ searchQuery }}</b></span>
-    <Card v-for="result in results" class="result-card w-full">
+    <Card v-for="(result) in resultBlocks" class="result-card w-full">
       <template #title><a :href="result.url" target="_blank">{{result.title}}</a></template>
       <template #subtitle>
         {{result.url}}

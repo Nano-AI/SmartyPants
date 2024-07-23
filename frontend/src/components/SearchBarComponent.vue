@@ -4,31 +4,19 @@ import InputText from "primevue/inputtext";
 import InputIcon from "primevue/inputicon";
 import IconField from "primevue/iconfield";
 
-import axios from 'axios'
-
 import {useRouter} from "vue-router";
-import SearchComponent from "./SearchComponent.vue";
+// import SearchComponent from "./SearchComponent.vue";
 
 let searchValue: string;
-let resultBlocks: any;
-
 const router = useRouter();
 
-const NGROKSERVERURL = "https://00a5-216-9-29-203.ngrok-free.app";
-
+// This component should simply push the query text through the router,
+// without doing any network operations on its own.
 async function searchQuery() {
   router.push({ name: 'search', 
       params: { 
         query: encodeURIComponent(searchValue)
       } 
-  });
-  await axios.get(`${NGROKSERVERURL}/naturalUserQuery/${searchValue}`, {
-      headers: {
-        "ngrok-skip-browser-warning": "0"
-      }
-  }).then((res) => {
-      resultBlocks = res["data"];
-      alert(JSON.stringify(resultBlocks));
   });
 }
 

@@ -23,8 +23,11 @@ const router = createRouter({
 });
 
 const app = createApp(App);
-app.use(router).use(PrimeVue, {
+app.use(router)
+   .use(PrimeVue, {
     theme: {
         preset: Aura
     }
-}).use(VueMarkdown).mount("#app");
+   })
+   .use(VueMarkdown)
+   .mount("#app");
