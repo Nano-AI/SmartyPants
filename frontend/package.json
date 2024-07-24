@@ -16,6 +16,7 @@
     "primevue": "^4.0.0",
     "quill": "^2.0.2",
     "tiny-emitter": "^2.1.0",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.29",
     "vue-axios": "^3.5.2",
     "vue-markdown": "^2.2.4",

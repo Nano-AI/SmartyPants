@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Menubar from "primevue/menubar";
 import Badge from "primevue/badge";
-import Avatar from "primevue/avatar";
+import Logo from "./Logo.vue";
 import {ref} from "vue";
 import SearchBarComponent from "./SearchBarComponent.vue";
 
@@ -34,7 +34,9 @@ const items = ref([
   <div class="w-full">
     <Menubar :model="items" class="nav-bar m-3">
       <template #start>
-        <span class="text-3xl">👖</span>
+        <span class="text-3xl inline-block logo major-mono-display ml-8">
+          SP
+        </span>
       </template>
       <template #item="{ item, props, hasSubmenu, root }">
         <RouterLink :to="item?.route" v-ripple class="flex items-center" v-bind="props.action">
@@ -60,5 +62,7 @@ const items = ref([
 </template>
 
 <style scoped>
-
+.logo {
+  display: inline-block !important;
+}
 </style>
