@@ -23,7 +23,6 @@ const routes = [
     { path:'/', name:"home", component: HomeComponent },
     { path:'/search/:query', name:"search", component: SearchComponent },
     { path: '/suggest', name: 'suggest', component: AddComponent },
-    { path: '/chat', name: 'chat', component: ChatComponent }
 ];
 
 const router = createRouter({

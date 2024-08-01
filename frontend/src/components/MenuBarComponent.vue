@@ -4,6 +4,12 @@ import Badge from "primevue/badge";
 import Logo from "./Logo.vue";
 import {ref} from "vue";
 import SearchBarComponent from "./SearchBarComponent.vue";
+import VueMarkdown from "vue-markdown-render";
+import Dialog from "primevue/dialog";
+import ChatComponent from "./ChatComponent.vue";
+import ChatBoxComponent from "./ChatBoxComponent.vue";
+import InputText from "primevue/inputtext";
+import Button from "primevue/button";
 
 const props = defineProps({
   displaySearch: {type: Boolean},
@@ -24,7 +30,8 @@ const items = ref([
   {
     label: "Chat",
     icon: 'pi pi-comments',
-    route: '/chat'
+    route: "#",
+    onClick: () => {visible.value = true;}
   }
   // {
   //   label: 'List',
@@ -33,6 +40,31 @@ const items = ref([
   // },
 ]);
 
+const visible = ref(false);
+
+
+
+const messages = ref([
+  { id: 1, text: 'Hello! How can I assist you today?', isUser: false },
+]);
+const newMessage = ref('');
+
+const sendMessage = () => {
+  console.log("HELP")
+  if (newMessage.value.trim() === '') return;
+
+  messages.value.push({ id: Date.now(), text: newMessage.value, isUser: true });
+  newMessage.value = '';
+
+  // Simulate AI response
+  setTimeout(() => {
+    messages.value.push({
+      id: Date.now() + 1,
+      text: "I'm here to help!",
+      isUser: false,
+    });
+  }, 1000);
+};
 </script>
 
 <template>
@@ -44,7 +76,7 @@ const items = ref([
         </span>
       </template>
       <template #item="{ item, props, hasSubmenu, root }">
-        <RouterLink :to="item?.route" v-ripple class="flex items-center" v-bind="props.action">
+        <RouterLink :to="item?.route" v-ripple class="flex items-center" v-bind="props.action" @click="item?.onClick">
           <span :class="item.icon"/>
           <span class="ml-2">{{ item.label }}</span>
           <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge"/>
@@ -64,10 +96,60 @@ const items = ref([
       </template>
     </Menubar>
   </div>
+
+<!--  AI Chat Dialog -->
+  <Dialog maximizable v-model:visible="visible" modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <div class="inner-dialog h-full">
+      <!-- Chat Messages -->
+      <div class="p-4 space-y-2 max-h-full bg-black rounded-t-2xl h-full">
+        <div class="space-y-2">
+          <div v-motion-slide-visible-top v-for="message in messages" :key="message.id" :class="{ 'text-right': message.isUser }">
+            <div
+                :class="{
+              'bg-red-500 text-white': message.isUser,
+              'bg-gray-300 text-black': !message.isUser
+            }"
+                class="inline-block p-6 rounded-lg max-w-xs text-xl"
+            >
+              {{ message.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="bg-black p-4 rounded-b-2xl flex">
+        <InputText
+            type="text"
+            v-model="newMessage"
+            @keyup.enter="sendMessage"
+            placeholder="Type your message..."
+            class="flex-1 p-2 rounded-lg border border-gray-400 bg-white text-black"
+        />
+        <Button
+            v-on:click="sendMessage()"
+            class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 <style scoped>
 .logo {
   display: inline-block !important;
 }
+.inner-container {
+  margin: 1rem;
+}
+
+.h-full {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: visible;
+}
+
 </style>

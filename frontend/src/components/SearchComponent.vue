@@ -80,8 +80,8 @@ function select(item: any) {
 <!--    </template>-->
 <!--  </Menubar>-->
 
-  <div class="container w-full">
-    <span class="small-text mb-24 text-lg">Showing results for <b>{{ searchQuery }}</b></span>
+  <div class="container w-screen overflow-y-auto ">
+    <span class="small-text mb-24 text-lg w-full">Showing results for <b>{{ searchQuery }}</b></span>
 <!--    for ever result -->
     <Card
         v-motion
@@ -167,5 +167,7 @@ function select(item: any) {
 }
 .container {
   padding: 1rem 6rem;
+  min-width: 100%;
+  width: 100%;
 }
 </style>
