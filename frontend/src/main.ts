@@ -8,10 +8,13 @@ import { createRouter, createWebHistory } from "vue-router";
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura'
 
+import { MotionPlugin } from "@vueuse/motion";
+
 import HomeComponent from "./components/HomeComponent.vue";
 import SearchComponent from "./components/SearchComponent.vue";
 import VueMarkdown from "vue-markdown-render";
 import AddComponent from "./components/AddComponent.vue";
+import ChatComponent from "./components/ChatComponent.vue";
 
 // NGROK Public url, might need to make this fixed eventually it'll be a headache otherwise.
 export const NGROKSERVERURL = "https://honest-solely-emu.ngrok-free.app";
@@ -19,7 +22,8 @@ export const NGROKSERVERURL = "https://honest-solely-emu.ngrok-free.app";
 const routes = [
     { path:'/', name:"home", component: HomeComponent },
     { path:'/search/:query', name:"search", component: SearchComponent },
-    { path: '/suggest', name: 'suggest', component: AddComponent }
+    { path: '/suggest', name: 'suggest', component: AddComponent },
+    { path: '/chat', name: 'chat', component: ChatComponent }
 ];
 
 const router = createRouter({
@@ -35,4 +39,5 @@ app.use(router)
     }
    })
    .use(VueMarkdown)
+    .use(MotionPlugin)
    .mount("#app");

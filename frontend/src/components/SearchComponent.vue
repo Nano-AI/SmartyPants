@@ -14,6 +14,7 @@ import axios from 'axios'
 // import * as SampleData from './SampleData.ts';
 import MenuBarComponent from "./MenuBarComponent.vue";
 import { NGROKSERVERURL } from "../main.ts";
+import sampleData from "./SampleData.ts";
 
 // Match db schema
 interface SearchResult {
@@ -38,6 +39,10 @@ const searchQuery = decodeURIComponent(<string>route.params['query']);
 // component (i.e request through this component's respective URL should work as well as
 // a query submission through the bar component)
 const fetchResults = async () => {
+  if (searchQuery == "skibidi") {
+    resultBlocks.value = sampleData;
+    return;
+  }
   await axios.get(`${NGROKSERVERURL}/naturalUserQuery/${searchQuery}`, {
       headers: {
         "ngrok-skip-browser-warning": "0"
@@ -76,8 +81,39 @@ function select(item: any) {
 <!--  </Menubar>-->
 
   <div class="container w-full">
-    <span class="small-text">Showing results for <b>{{ searchQuery }}</b></span>
-    <Card v-for="(result) in resultBlocks" class="result-card w-full">
+    <span class="small-text mb-24 text-lg">Showing results for <b>{{ searchQuery }}</b></span>
+<!--    for ever result -->
+    <Card
+        v-motion
+        :initial="{
+          opacity: 0,
+          y: -100,
+          scale: 1
+        }"
+        :enter="{
+          opacity: 1,
+          y: 0,
+          transition: {
+            type: 'spring',
+            stiffness: '100',
+            delay: (index + 1) * 150
+          },
+          scale: 1
+        }"
+        :visible-once="{
+          opacity: 1,
+          y: 0,
+          transition: {
+            type: 'spring',
+            stiffness: '100',
+            delay: (index + 1) * 150
+          },
+          scale: 1
+        }"
+        :hovered="{
+          scale: 1.02,
+        }"
+        v-for="(result, index) in resultBlocks" class="result-card w-full">
       <template #title><a :href="result.url" target="_blank">{{result.title}}</a></template>
       <template #subtitle>
         {{result.url}}
@@ -123,7 +159,7 @@ function select(item: any) {
 }
 .result-card {
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 .small-text {
   color: grey;

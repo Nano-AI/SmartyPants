@@ -20,6 +20,11 @@ const items = ref([
     label: "Suggest",
     icon: 'pi pi-plus',
     route: '/suggest'
+  },
+  {
+    label: "Chat",
+    icon: 'pi pi-comments',
+    route: '/chat'
   }
   // {
   //   label: 'List',
@@ -34,7 +39,7 @@ const items = ref([
   <div class="w-full">
     <Menubar :model="items" class="nav-bar m-3">
       <template #start>
-        <span class="text-3xl inline-block logo major-mono-display ml-8">
+        <span class="text-3xl inline-block logo major-mono-display ml-8 p-2">
           SP
         </span>
       </template>
