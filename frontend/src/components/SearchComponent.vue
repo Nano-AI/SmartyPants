@@ -16,6 +16,8 @@ import MenuBarComponent from "./MenuBarComponent.vue";
 import { NGROKSERVERURL } from "../main.ts";
 import sampleData from "./SampleData.ts";
 
+import {Storage} from "../Storage.ts";
+
 // Match db schema
 interface SearchResult {
     _id: number;
@@ -57,6 +59,7 @@ onMounted(fetchResults);
 
 const visible = ref(false);
 const selected = ref({
+  _id: 0,
   title: "",
   type: "",
   flags: [],
@@ -68,6 +71,20 @@ const selected = ref({
 function select(item: any) {
   visible.value = true;
   selected.value = item;
+}
+
+function addToList(result: SearchResult) {
+  if (!Storage.getStorage("list", "opportunities")) {
+    Storage.saveStorage("list", {opportunities: []});
+  }
+  let temp = Storage.getStorage("list", "opportunities");
+  temp.push(result);
+  Storage.saveStorage(
+      "list",
+      {
+        "opportunities": temp
+      }
+  );
 }
 
 </script>
@@ -131,7 +148,7 @@ function select(item: any) {
       <vue-markdown :source="selected.content"></vue-markdown>
       <div class="button-container">
         <Button as="a" label="Why" icon="pi pi-question" target="_blank" rel="noopener" iconPos="right" class="open-button" />
-        <Button as="a" label="Add to list" icon="pi pi-list" target="_blank" rel="noopener" iconPos="right" class="open-button" />
+        <Button as="a" label="Add to list" icon="pi pi-list" target="_blank" rel="noopener" iconPos="right" class="open-button" @click="addToList(selected)" />
         <Button as="a" label="Open" icon="pi pi-link" :href="selected.url" target="_blank" rel="noopener" iconPos="right" class="open-button" />
       </div>
     </div>

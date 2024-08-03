@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.16.0",
     "@primevue/themes": "^4.0.0",
     "@vueuse/motion": "^2.2.3",
     "axios": "^1.7.2",
+    "fs": "^0.0.1-security",
     "marked": "^13.0.2",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.0",
