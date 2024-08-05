@@ -159,7 +159,7 @@ const sendMessage = () => {
       <!-- Chat Messages -->
       <div class="p-4 space-y-2 max-h-full bg-black rounded-t-2xl h-full">
         <div class="space-y-2 overflow-y-scroll max-h-full">
-          <div v-motion-slide-visible-top v-for="message in getMessages()" :key="message.id" :class="{ 'text-right': message.isUser }" class="overflow-y-scroll">
+          <div v-motion-slide-visible-top v-for="message in messages" :key="message.id" :class="{ 'text-right': message.isUser }" class="overflow-y-scroll">
             <div
                 :class="{
               'bg-red-500 text-white': message.isUser,
