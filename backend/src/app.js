@@ -20,7 +20,13 @@ const gemini = require('./geminiservice');
 const { error } = require("console");
 const app = express();
 
-app.use(cors()).use(express.json());
+
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)).use(express.json());
 
 // Setup server port
 const port = process.env.PORT;
