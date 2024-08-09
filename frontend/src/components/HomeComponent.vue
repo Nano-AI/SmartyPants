@@ -9,27 +9,17 @@ const loopOffset = 500;
 </script>
 
 <template>
-  <MenuBarComponent class="absolute" :displaySearch="false"/>
-  <div class="center-container">
-    <Logo class="logo h-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1]" />
-<!--    <h1 v-motion-->
-<!--        :initial="{-->
-<!--          opacity: 0,-->
-<!--        }"-->
-<!--        :enter="{-->
-<!--          opacity: 1,-->
-<!--          transition: {-->
-<!--            delay: 250,-->
-<!--          },-->
-<!--        }"-->
-<!--        class="inline-block font-bold p-10 major-mono-display">SmartyPants</h1>-->
-    <h1 class="inline-block font-bold major-mono-display">
+  <div class="max-h-screen overflow-y-hidden">
+    <MenuBarComponent class="absolute" :displaySearch="false"/>
+    <div class="center-container overflow-y-hidden">
+      <Logo class="logo h-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1]" />
+      <h1 class="inline-block font-bold major-mono-display">
       <span v-for="(letter, index) in title">
         <span v-motion
-            :initial="{
-              opacity: 0.5,
+              :initial="{
+              opacity: 0.25,
             }"
-            :enter="{
+              :enter="{
               opacity: 1,
               transition: {
                 delay: (index + 1) * fadeDelay,
@@ -40,14 +30,15 @@ const loopOffset = 500;
                 ease: 'easeIn',
               }
             }"
-           >{{letter}}</span>
+        >{{letter}}</span>
       </span>
-    </h1>
-    <div>
-      <p class="text-md pb-8">
-      </p>
+      </h1>
+      <div>
+        <p class="text-md pb-8">
+        </p>
+      </div>
+      <SearchBarComponent />
     </div>
-    <SearchBarComponent />
   </div>
 </template>
 

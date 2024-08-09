@@ -99,3 +99,12 @@ button:focus-visible {
   height: 100%;
   overflow-y: scroll;
 }
+i
+
+.fire {
+  background: #ff0000;
+  background: linear-gradient(
+                  to right,
+                  #ff0000,#fdcf58
+  );
+}

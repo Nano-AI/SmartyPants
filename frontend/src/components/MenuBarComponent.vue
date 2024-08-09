@@ -121,6 +121,11 @@ const sendMessage = () => {
   run();
 };
 
+const clearStorage = () => {
+  Storage.clearStorage("messages");
+  messages.value = [];
+};
+
 </script>
 
 <template>
@@ -154,12 +159,12 @@ const sendMessage = () => {
   </div>
 
 <!--  AI Chat Dialog -->
-  <Dialog maximizable v-model:visible="visible" modal header="Header" :style="{ width: '75vw', height: '75vh' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }" class="h-full">
+  <Dialog maximizable v-model:visible="visible" modal header="Chat" :style="{ width: '75vw', height: '75vh' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }" class="h-full">
     <div class="inner-dialog h-full">
       <!-- Chat Messages -->
       <div class="p-4 space-y-2 max-h-full bg-black rounded-t-2xl h-full">
         <div class="space-y-2 overflow-y-scroll max-h-full">
-          <div v-motion-slide-visible-top v-for="message in getMessages()" :key="message.id" :class="{ 'text-right': message.isUser }" class="overflow-y-scroll">
+          <div v-motion-slide-visible-top v-for="message in messages" :key="message.id" :class="{ 'text-right': message.isUser }" class="overflow-y-scroll">
             <div
                 :class="{
               'bg-red-500 text-white': message.isUser,
@@ -189,6 +194,12 @@ const sendMessage = () => {
             class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
         >
           Send
+        </button>
+        <Button
+            v-on:click="clearStorage()"
+            class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+        >
+          Clear
         </button>
       </div>
     </div>

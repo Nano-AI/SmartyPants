@@ -68,12 +68,16 @@ const selected = ref({
   url: ""
 });
 
+const click = ref(false);
+
 function select(item: any) {
   visible.value = true;
   selected.value = item;
+  click.value = false;
 }
 
 function addToList(result: SearchResult) {
+  click.value = true;
   if (!Storage.getStorage("list", "opportunities")) {
     Storage.saveStorage("list", {opportunities: []});
   }
@@ -148,7 +152,7 @@ function addToList(result: SearchResult) {
       <vue-markdown :source="selected.content"></vue-markdown>
       <div class="button-container">
         <Button as="a" label="Why" icon="pi pi-question" target="_blank" rel="noopener" iconPos="right" class="open-button" />
-        <Button as="a" label="Add to list" icon="pi pi-list" target="_blank" rel="noopener" iconPos="right" class="open-button" @click="addToList(selected)" />
+        <Button as="a" label="Add to list" :icon="`pi ${click ? 'pi-check' : 'pi-list'}`" target="_blank" rel="noopener" iconPos="right" class="open-button" @click="addToList(selected)" />
         <Button as="a" label="Open" icon="pi pi-link" :href="selected.url" target="_blank" rel="noopener" iconPos="right" class="open-button" />
       </div>
     </div>
