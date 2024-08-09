@@ -28,7 +28,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory('/SmartyPants/'),
+    history: createWebHistory(),
     routes: routes
 });
 
