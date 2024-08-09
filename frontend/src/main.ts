@@ -38,6 +38,7 @@ app.use(router)
         preset: Aura
     }
    })
+   // @ts-ignore
    .use(VueMarkdown)
     .use(MotionPlugin)
    .mount("#app");

@@ -5,6 +5,7 @@ export module Storage {
 
     export function getStorage(key: string, item?: any): any {
         if (localStorage.getItem(key) && item) {
+            // @ts-ignore
             const data = JSON.parse(localStorage.getItem(key));
             return data[item];
         } else if (localStorage.getItem(key)) {

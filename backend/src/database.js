@@ -40,6 +40,8 @@ async function retrieveData(query) {
     for await (const doc of dbresult) {
         dataBuffer.push(doc);
     }
+
+
     return dataBuffer;
 }
 

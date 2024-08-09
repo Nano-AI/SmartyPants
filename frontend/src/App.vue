@@ -2,6 +2,7 @@
 </script>
 
 <template>
+  <!-- @vue-ignore-->
   <router-view :key="$route.path"></router-view>
 </template>
 

@@ -61,6 +61,7 @@ function removeTag(name: string) {
 async function submitForm() {
   var suggestionOut = {
     "title": title.value,
+    // @ts-ignore
     "type": type.value.code,
     "flags": flags.value,
     "description": description.value,
