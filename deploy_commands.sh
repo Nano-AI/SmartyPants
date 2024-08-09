@@ -1,3 +1,4 @@
+git pull origin master
 npm run build
 git add .
 git commit -m "updated frontend"
