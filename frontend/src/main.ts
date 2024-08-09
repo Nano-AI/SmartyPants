@@ -20,15 +20,11 @@ import ListComponent from "./components/ListComponent.vue";
 export const NGROKSERVERURL = "https://honest-solely-emu.ngrok-free.app";
 
 const routes = [
-    { path:'/', name:"home", component: HomeComponent },
-    { path:'/search/:query', name:"search", component: SearchComponent },
-    { path: '/suggest', name: 'suggest', component: AddComponent },
-    { path: '/list', name: 'list', component: ListComponent },
-    { path: '/SmartyPants/', name: 'Home', component: HomeComponent},
     { path:'/SmartyPants/', name:"home", component: HomeComponent },
     { path:'/SmartyPants/search/:query', name:"search", component: SearchComponent },
     { path: '/SmartyPants/suggest', name: 'suggest', component: AddComponent },
     { path: '/SmartyPants/list', name: 'list', component: ListComponent },
+    { path: '/', redirect: {name: 'home'} }
 ];
 
 const router = createRouter({
