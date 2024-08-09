@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue(
 
   ), svgLoader()],
-  base: '/SmartyPants/',
+  //base: '/SmartyPants/',
   server: {
     host: true,
     strictPort: true,
