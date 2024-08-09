@@ -37,10 +37,10 @@ async function retrieveData(query) {
         throw new Error('DB has not been connected!');
     }
     const dbresult = await connection.collection("opportunities").find(query);
+
     for await (const doc of dbresult) {
         dataBuffer.push(doc);
     }
-
 
     return dataBuffer;
 }
